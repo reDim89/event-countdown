@@ -42,11 +42,11 @@ const EVENTS = {
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState<'tbilisi' | 'baku'>('tbilisi');
   const [themeParams, setThemeParams] = useState({
-    bg_color: '#131313',
+    bg_color: '#ffffff',
     button_color: '#4667fb',
-    button_text_color: 'white',
-    text_color: 'white',
-    hint_color: 'rgba(255, 255, 255, 0.8)',
+    button_text_color: '#ffffff',
+    text_color: '#000000',
+    hint_color: '#999999;',
   });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Home() {
         setThemeParams(window.Telegram.WebApp.themeParams);
       }
     }
-  }, []); // We don't need themeParams in dependencies as it's only used for fallback
+  }, []);
 
   const currentEvent = EVENTS[selectedCity];
 
@@ -89,7 +89,7 @@ export default function Home() {
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value as 'tbilisi' | 'baku')}
-              className="appearance-none w-full px-6 py-3 pr-10 rounded-lg bg-black/20 border border-white/20 focus:outline-none focus:border-white/40 text-lg text-center"
+              className="w-full px-6 py-3 rounded-lg bg-black/20 border border-white/20 text-lg text-center select-none cursor-pointer focus:outline-none focus:border-white/40 focus-visible:ring-2 focus-visible:ring-white/40 transition-colors [&>option]:bg-black"
               style={{ color: themeParams.text_color }}
             >
               <option value="tbilisi">Тбилиси</option>

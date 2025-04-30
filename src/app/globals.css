@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #3b82f6;
@@ -23,4 +25,30 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Reset select styling */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
+
+/* Firefox specific fix */
+@-moz-document url-prefix() {
+  select {
+    text-align-last: center;
+  }
+}
+
+/* Safari specific fix */
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance:none) {
+    select {
+      text-align-last: center;
+      text-align: center;
+      -webkit-text-align-last: center;
+    }
+  }
 }
