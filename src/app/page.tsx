@@ -16,13 +16,6 @@ declare global {
           onClick: (callback: () => void) => void;
         };
         expand: () => void;
-        themeParams: {
-          bg_color: string;
-          text_color: string;
-          hint_color: string;
-          button_color: string;
-          button_text_color: string;
-        };
       };
     };
   }
@@ -41,38 +34,28 @@ const EVENTS = {
 
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState<'tbilisi' | 'baku'>('tbilisi');
-  const [themeParams, setThemeParams] = useState({
-    bg_color: '#ffffff',
-    button_color: '#4667fb',
-    button_text_color: '#ffffff',
-    text_color: '#000000',
-    hint_color: '#999999;',
-  });
 
   useEffect(() => {
-    // Initialize Telegram WebApp and set theme parameters
+    // Initialize Telegram WebApp
     if (window.Telegram?.WebApp) {
       window.Telegram.WebApp.ready();
       window.Telegram.WebApp.expand();
-      if (window.Telegram.WebApp.themeParams) {
-        setThemeParams(window.Telegram.WebApp.themeParams);
-      }
-    }
+    }    
   }, []);
 
   const currentEvent = EVENTS[selectedCity];
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-[url('https://imagedelivery.net/gW1GbbOAwqUR1gYscngw2Q/b457ddb9-f720-4698-4fc4-d1459cff8600/public')] bg-cover bg-center">
-      <main className="w-full max-w-4xl space-y-8">
+      {/* Semi-transparent overlay for better readability */}
+      <div className="absolute inset-0 bg-black/50"></div>
+      
+      <main className="w-full max-w-4xl space-y-8 relative z-10">
         <div className="text-center space-y-4">
-          <h1
-            className="text-3xl sm:text-6xl font-bold tracking-tight"
-            style={{ color: themeParams.text_color }}
-          >
+          <h1 className="text-3xl sm:text-6xl font-bold tracking-tight text-white">
             Концерты Джастина&nbsp;Тимберлейка<br />в Тбилиси и Баку
           </h1>
-          <p className="text-xl" style={{ color: themeParams.hint_color }}>
+          <p className="text-xl text-gray-300">
             {currentEvent.city}:{' '}
             {currentEvent.date.toLocaleString('ru-RU', {
               weekday: 'long',
@@ -89,13 +72,12 @@ export default function Home() {
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value as 'tbilisi' | 'baku')}
-              className="w-full px-6 py-3 rounded-lg bg-black/20 border border-white/20 text-lg text-center select-none cursor-pointer focus:outline-none focus:border-white/40 focus-visible:ring-2 focus-visible:ring-white/40 transition-colors [&>option]:bg-black"
-              style={{ color: themeParams.text_color }}
+              className="w-full px-6 py-3 rounded-lg bg-black/40 border border-white/30 text-lg text-center text-white select-none cursor-pointer focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-white/40 transition-colors"
             >
-              <option value="tbilisi">Тбилиси</option>
-              <option value="baku">Баку</option>
+              <option value="tbilisi" className="bg-gray-900 text-white">Тбилиси</option>
+              <option value="baku" className="bg-gray-900 text-white">Баку</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white/60">
+            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-300">
               <svg
                 className="h-4 w-4 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +89,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-black/20 p-8 rounded-2xl backdrop-blur-sm">
+        <div className="bg-black/40 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
           <CountdownTimer targetDate={currentEvent.date} />
         </div>
       </main>
