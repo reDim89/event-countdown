@@ -30,6 +30,10 @@ const EVENTS = {
     city: 'Баку',
     date: new Date('2025-07-27T00:00:00+03:00'), // Moscow timezone
   },
+  stambul: {
+    city: 'Стамбул',
+    date: new Date('2025-07-30T00:00:00+03:00'), // Moscow timezone
+  },
 };
 
 export default function Home() {
@@ -46,17 +50,17 @@ export default function Home() {
   const currentEvent = EVENTS[selectedCity];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-[url('https://imagedelivery.net/gW1GbbOAwqUR1gYscngw2Q/b457ddb9-f720-4698-4fc4-d1459cff8600/public')] bg-cover bg-center">
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-[url('https://storage.yandexcloud.net/redim/jt_countdown.jpg')] bg-cover bg-center">
       {/* Semi-transparent overlay for better readability */}
       <div className="absolute inset-0 bg-black/50"></div>
       
       <main className="w-full max-w-4xl space-y-8 relative z-10">
         <div className="text-center space-y-4">
           <h1 className="text-3xl sm:text-6xl font-bold tracking-tight text-white">
-            Концерты Джастина&nbsp;Тимберлейка<br />в Тбилиси и Баку
+            Концерты Джастина&nbsp;Тимберлейка<br />
           </h1>
           <p className="text-xl text-gray-300">
-            {currentEvent.city}:{' '}
+            {currentEvent.city}{' – '}
             {currentEvent.date.toLocaleString('ru-RU', {
               weekday: 'long',
               year: 'numeric',
@@ -76,6 +80,7 @@ export default function Home() {
             >
               <option value="tbilisi" className="bg-gray-900 text-white">Тбилиси</option>
               <option value="baku" className="bg-gray-900 text-white">Баку</option>
+              <option value="stambul" className="bg-gray-900 text-white">Стамбул</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-300">
               <svg
